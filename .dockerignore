@@ -1,0 +1,11 @@
+.git
+.local
+.cache
+.npm
+node_modules
+data
+.env*
+__pycache__
+.pytest_cache
+frontend/public/campus-engraving.png
+frontend/public/campus.webp

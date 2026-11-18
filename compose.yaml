@@ -1,0 +1,22 @@
+# The database is a private MANAGED PostgreSQL service, not an internet-exposed container.
+services:
+  workspace:
+    build: .
+    environment:
+      APP_MODE: production
+      DATABASE_URL_FILE: /run/secrets/database_url
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/database_ca
+      WEB_WORKERS: 2
+    secrets: [database_url, database_ca]
+    ports: ['127.0.0.1:8000:8000']
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ['no-new-privileges:true']
+    cap_drop: [ALL]
+secrets:
+  database_url:
+    file: ${DATABASE_URL_SECRET_FILE:?Mount a secrets-managed DSN file}
+  database_ca:
+    file: ${DATABASE_CA_FILE:?Mount the managed PostgreSQL CA certificate}

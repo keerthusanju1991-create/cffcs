@@ -1,0 +1,11 @@
+.local/
+.cache/
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+.pytest_cache/
+data/*.dump
+data/*.sql
+*.log
